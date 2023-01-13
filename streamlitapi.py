@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import pandas as pd
+import numpy as np
 
 model = pickle.load(open("LinearRegressionmode1.pkl",'rb'))
 car = pd.read_csv("cleaned car.csv")
