@@ -6,19 +6,22 @@ model = pickle.load(open("LinearRegressionmode1.pkl",'rb'))
 car = pd.read_csv("cleaned car.csv")
 companies = sorted(car['company'].unique())
 car_models = sorted(car['name'].unique())
+year = sorted(car['year'].unique())
+
 
 def main():
     st.title('car price prediction')
 
     car_model = st.selectbox('car_model', car_models)
     company = st.selectbox('company', companies)
-    year = st.number_input('year')
+    year = st.selectbox('year')
     fuel_type = st.selectbox('fuel_type', ['Petrol', 'Diesel', 'CNG'])
     kms_driven = st.number_input('kms_driven')
 
     #conversion of input data
     car_model = car_models.index(car_model)
     company = companies.index(company)
+    year = years.index(year)
     fuel_type = ['Petrol', 'Diesel', 'CNG'].index(fuel_type)
     
     #prediction code
