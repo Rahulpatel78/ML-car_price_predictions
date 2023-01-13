@@ -1,7 +1,7 @@
 import pickle
 import streamlit as st
 
-model  = pickle.load(open('C:\Users\rahul\PycharmProjects\car_price_prediction\LinearRegressionmode1.pkl' , 'rb'))
+model  = pickle.load(open(f'C:\Users\rahul\PycharmProjects\car_price_prediction\LinearRegressionmode1.pkl' , 'rb'))
 
 def main():
     st.title('car price prediction')
