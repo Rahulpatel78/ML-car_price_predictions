@@ -1,12 +1,16 @@
-import pickle
 import streamlit as st
+import pickle
 
 model = pickle.load(open("LinearRegressionmode1.pkl",'rb'))
+car = pd.read_csv("cleaned car.csv")
+companies = sorted(car['company'].unique())
+car_models = sorted(car['name'].unique())
+
 def main():
     st.title('car price prediction')
 
-    car_model = st.text_input('car_model')
-    company = st.text_input('company')
+    car_model = st.selectbox('car_model', car_models)
+    company = st.selectbox('company', companies)
     year = st.text_input('year')
     fuel_type = st.text_input('fuel_type')
     kms_driven = st.text_input('kms_driven')
