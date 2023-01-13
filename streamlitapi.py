@@ -23,7 +23,7 @@ def main():
     
     #prediction code
     if st.button('predict'):
-        makeprediction = model.predict([[car_model,company,year,fuel_type,kms_driven]])
+        makeprediction = model.predict(np.array([[car_model,company,year,fuel_type,kms_driven]]).reshape(1, -1))
         output = round(makeprediction[0],2)
         st.success('you can sell your car for {}'. format(output))
 
