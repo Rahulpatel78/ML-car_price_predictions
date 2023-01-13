@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import pandas as pd
 
 model = pickle.load(open("LinearRegressionmode1.pkl",'rb'))
 car = pd.read_csv("cleaned car.csv")
@@ -11,10 +12,15 @@ def main():
 
     car_model = st.selectbox('car_model', car_models)
     company = st.selectbox('company', companies)
-    year = st.text_input('year')
-    fuel_type = st.text_input('fuel_type')
-    kms_driven = st.text_input('kms_driven')
+    year = st.number_input('year')
+    fuel_type = st.selectbox('fuel_type', ['Petrol', 'Diesel', 'CNG'])
+    kms_driven = st.number_input('kms_driven')
 
+    #conversion of input data
+    car_model = car_models.index(car_model)
+    company = companies.index(company)
+    fuel_type = ['Petrol', 'Diesel', 'CNG'].index(fuel_type)
+    
     #prediction code
     if st.button('predict'):
         makeprediction = model.predict([[car_model,company,year,fuel_type,kms_driven]])
