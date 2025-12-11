@@ -1,32 +1,30 @@
-import streamlit as st
-import pickle
 import pandas as pd
 import numpy as np
-
-model = pickle.load(open("LinearRegressionmode1.pkl",'rb'))
-car = pd.read_csv("cleaned car.csv")
-companies = sorted(car['company'].unique())
-car_models = sorted(car['name'].unique())
+import streamlit as st
+import pickle
 
 def main():
-    st.title('car price prediction')
+    model = pickle.load(open("car_price_model.pkl", "rb"))
 
-    car_model = st.selectbox('car_model', car_models)
-    company = st.selectbox('company', companies)
-    year = st.number_input('year')
-    fuel_type = st.selectbox('fuel_type', ['Petrol', 'Diesel', 'CNG'])
-    kms_driven = st.number_input('kms_driven')
+    car_model = st.selectbox("Select Car Model", options)
+    company = st.selectbox("Select Company", company_options)
+    year = st.text_input("Enter Year")
+    fuel_type = st.selectbox("Fuel Type", ["Petrol", "Diesel", "CNG"])
+    kms_driven = st.text_input("Kms Driven")
 
-    #conversion of input data
-    car_model = car_models.index(car_model)
-    company = companies.index(company)
-    fuel_type = ['Petrol', 'Diesel', 'CNG'].index(fuel_type)
-    
-    #prediction code
-    if st.button('predict'):
-        makeprediction = model.predict(np.array([[car_model,company,year,fuel_type,kms_driven]]).reshape(1, -1))
-        output = round(makeprediction[0],2)
-        st.success('you can sell your car for {}'. format(output))
+    if st.button("Predict Price"):
+        year = int(year)
+        kms_driven = int(kms_driven)
 
-if __name__ =='__main__':
-    main()
+        input_df = pd.DataFrame({
+            "car_model": [car_model],
+            "company": [company],
+            "year": [year],
+            "fuel_type": [fuel_type],
+            "kms_driven": [kms_driven]
+        })
+
+        prediction = model.predict(input_df)
+
+        st.success(f"Predicted Price: ₹ {prediction[0]:,.2f}")
+
