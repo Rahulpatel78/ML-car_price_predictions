@@ -23,6 +23,7 @@ def main():
             "fuel_type": [fuel_type],
             "kms_driven": [kms_driven]
         })
+st.write("DEBUG VALUES:", car_model, company, year, fuel_type, kms_driven)
 
         prediction = model.predict(input_df)
 
